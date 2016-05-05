@@ -1,5 +1,7 @@
 # partial
 
+- only support x86_64(amd64) linux for now.
+
 
 ## Basic
 
