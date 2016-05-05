@@ -42,6 +42,9 @@ int main(void)
     void (*d)() = partial(c, "D");
 
     d();  // print "A B C D"
+
+    // or ...
+    ((void (*)())partial(partial(partial(partial(foo, "A"), "B"), "C"), "D"))();
 }
 ```
 
