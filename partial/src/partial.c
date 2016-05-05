@@ -15,7 +15,7 @@ void *partial(void *function, void *first_arg)
     void *partialized = mmap(NULL, CODE_SIZE_LEAST,
                              PROT_READ | PROT_WRITE | PROT_EXEC,
                              MAP_PRIVATE | MAP_ANON, -1, 0);
-    if (partialized == (void *)-1) {
+    if (partialized == MAP_FAILED) {
         return NULL;
     }
     assert(sizeof(uintptr_t) == 8);
