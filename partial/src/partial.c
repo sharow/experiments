@@ -12,14 +12,14 @@
 
 void *partial(void *function, void *first_arg)
 {
-    void *partialized = mmap(NULL, CODE_SIZE_LEAST,
-                             PROT_READ | PROT_WRITE | PROT_EXEC,
-                             MAP_PRIVATE | MAP_ANON, -1, 0);
-    if (partialized == MAP_FAILED) {
+    void *wrapped = mmap(NULL, CODE_SIZE_LEAST,
+                         PROT_READ | PROT_WRITE | PROT_EXEC,
+                         MAP_PRIVATE | MAP_ANON, -1, 0);
+    if (wrapped == MAP_FAILED) {
         return NULL;
     }
     assert(sizeof(uintptr_t) == 8);
-    unsigned char *p = partialized;
+    unsigned char *p = wrapped;
     *p++ = 0x41; *p++ = 0x51;  // push r9
     *p++ = 0x4d; *p++ = 0x89; *p++ = 0xc1;  // mov r9, r8
     *p++ = 0x49; *p++ = 0x89; *p++ = 0xc8;  // mov r8, rcx
@@ -31,10 +31,10 @@ void *partial(void *function, void *first_arg)
     *p++ = 0xff; *p++ = 0xd0;  // call rax
     *p++ = 0x41; *p++ = 0x59;  // pop r9
     *p++ = 0xc3;  // ret
-    return partialized;
+    return wrapped;
 }
 
-void unpartial(void *partialized)
+void unpartial(void *partial)
 {
-    munmap(partialized, CODE_SIZE_LEAST);
+    munmap(partial, CODE_SIZE_LEAST);
 }
