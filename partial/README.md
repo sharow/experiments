@@ -1,6 +1,6 @@
 # partial
 
-```
+```c
 #include <stdio.h>
 #include <partial/partial.h>
 
