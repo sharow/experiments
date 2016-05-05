@@ -18,9 +18,8 @@ void *partial(void *function, void *first_arg)
     if (partialized == (void *)-1) {
         return NULL;
     }
-
-    unsigned char *p = partialized;
     assert(sizeof(uintptr_t) == 8);
+    unsigned char *p = partialized;
     *p++ = 0x41; *p++ = 0x51;  // push r9
     *p++ = 0x4d; *p++ = 0x89; *p++ = 0xc1;  // mov r9, r8
     *p++ = 0x49; *p++ = 0x89; *p++ = 0xc8;  // mov r8, rcx
