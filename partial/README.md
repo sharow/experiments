@@ -2,6 +2,7 @@
 - partial function in C.
 - it's like [std::bind1st](http://en.cppreference.com/w/cpp/utility/functional/bind12).
 - only support x86_64(amd64) linux for now.
+- `pointer` only.
 
 
 ## Basic
