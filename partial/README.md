@@ -19,7 +19,7 @@ int main(void)
 {
     greet("sharow");    // => print `hello sharow!`
 
-	void (*greet_to_sharow)() = partial(greet, "sharow");
+	void (*greet_to_sharow)(void) = partial(greet, "sharow");
 	greet_to_sharow();  // print `hello sharow!`
 
     unpartial(greet_to_sharow);  // cleanup
@@ -42,12 +42,12 @@ int main(void)
     void (*a)(char *b, char *c, char *d) = partial(foo, "A");
     void (*b)(char *c, char *d) = partial(a, "B");
     void (*c)(char *d) = partial(b, "C");
-    void (*d)() = partial(c, "D");
+    void (*d)(void) = partial(c, "D");
 
     d();  // print "A B C D"
 
     // or ...
-    ((void (*)())partial(partial(partial(partial(foo, "A"), "B"), "C"), "D"))();
+    ((void (*)(void))partial(partial(partial(partial(foo, "A"), "B"), "C"), "D"))();
 }
 ```
 
@@ -62,8 +62,8 @@ typedef struct FooClass_ FooClass;
 struct FooClass_ {
     char *_name;
     void (*set_name)(char *name);
-    char *(*get_name)();
-    void (*show_name)();
+    char *(*get_name)(void);
+    void (*show_name)(void);
 };
 
 void FooClass_set_name(FooClass *foo, char *name)
